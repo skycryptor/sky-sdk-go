@@ -5,7 +5,7 @@ package skycryptor_go
 #include "stdlib.h"
 #cgo LDFLAGS: ./libcryptomaic.a -lstdc++ -lssl -lcrypto
 #cgo CFLAGS: -O3
- */
+*/
 import "C"
 import "unsafe"
 
@@ -27,14 +27,14 @@ type PublicKey struct {
 }
 
 func CM_init() {
-	C.cryptomagic_init();
+	C.cryptomagic_init()
 	cm := NewCryptoMagic()
 	sk := cm.generate_private_key()
 	sk.getPublicKey()
 	cm.pointer = C.cryptomagic_new()
 }
 
-/// **** Cryptomagic native functions
+/// Cryptomagic native functions
 func NewCryptoMagic() (cm CryptoMagic) {
 	cm.pointer = C.cryptomagic_new()
 	return cm
