@@ -3,7 +3,7 @@ package skycryptor_go
 /*
 #include "CryptoMagic_C.h"
 #include "stdlib.h"
-#cgo LDFLAGS: ./libcryptomaic.a -lstdc++ -lssl -lcrypto
+#cgo LDFLAGS: ${SRCDIR}/libcryptomagic.a -lstdc++ -lssl -lcrypto
 #cgo CFLAGS: -O3
 */
 import "C"
