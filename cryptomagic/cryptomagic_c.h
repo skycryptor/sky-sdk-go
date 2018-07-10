@@ -50,6 +50,40 @@ void cryptomagic_private_key_free(void *private_key_ptr);
 void * cryptomagic_get_public_key(void *private_key_ptr);
 
 /**
+ * \brief Getting raw bytes from given private key
+ * @param private_key_ptr
+ * @param[out] buffer
+ * @param[out] length
+ */
+void cryptomagic_private_key_to_bytes(void *private_key_ptr, char **buffer, int *length);
+
+/**
+ * \brief Getting raw bytes from given public key
+ * @param public_key_ptr
+ * @param[out] buffer
+ * @param[out] length
+ */
+void cryptomagic_public_key_to_bytes(void *public_key_ptr, char **buffer, int *length);
+
+/**
+ * \brief Allocating and getting private key from given bytes array
+ * @param cm_ptr
+ * @param buffer
+ * @param length
+ * @return Allocated private key pointer
+ */
+void * cryptomagic_private_key_from_bytes(void * cm_ptr, const char *buffer, int length);
+
+/**
+ * \brief Allocating and getting public key from given bytes array
+ * @param cm_ptr
+ * @param buffer
+ * @param length
+ * @return Allocated private key pointer
+ */
+void * cryptomagic_public_key_from_bytes(void * cm_ptr, char *buffer, int length);
+
+/**
  * \brief Cleaning up public key object from memory
  * @param public_key_ptr
  * @return
@@ -64,7 +98,7 @@ void cryptomagic_public_key_free(void *public_key_ptr);
  * @package[out] symmetric_key_len
  * @return raw pointer to capsule object
  */
-void * encapsulate(void * cm_ptr, void *public_key_ptr, char **symmetric_key_out, int *symmetric_key_len);
+void * cryptomagic_encapsulate(void * cm_ptr, void *public_key_ptr, char **symmetric_key_out, int *symmetric_key_len);
 
 /**
  * \brief Cleaning capsule from memory
@@ -79,7 +113,24 @@ void cryptomagic_capsule_free(void *capsule_ptr);
  * @param[out] symmetric_key_out
  * @param[out] symmetric_key_len
  */
-void decapsulate_original(void * cm_ptr, void *capsule_ptr, void * private_key_ptr, char **symmetric_key_out, int *symmetric_key_len);
+void cryptomagic_decapsulate_original(void * cm_ptr, void *capsule_ptr, void * private_key_ptr, char **symmetric_key_out, int *symmetric_key_len);
+
+/**
+ * \brief Converting given capsule to byte array
+ * @param capsule
+ * @param[out] buffer
+ * @param[out] length
+ */
+void cryptomagic_capsule_to_bytes(void *capsule, char **buffer, int *length);
+
+/**
+ * \brief Allocating and returning capsule from given byte array
+ * @param cm_ptr
+ * @param buffer
+ * @param length
+ * @return
+ */
+void * cryptomagic_capsule_from_bytes(void * cm_ptr, char *buffer, int length);
 
 #ifdef __cplusplus
 }

@@ -11,5 +11,5 @@ mkdir -p build && cd build
 
 cmake ..
 make -j4
-cp "$LIBFILE" "$SOURCE_DIR"
+cp "$LIBFILE" "$SOURCE_DIR/cryptomagic"
 cd "$SOURCE_DIR" && rm -rf "$LIBNAME"

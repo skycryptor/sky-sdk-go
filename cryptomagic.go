@@ -1,29 +1,39 @@
 package skycryptor_go
 
 /*
-#include "CryptoMagic_C.h"
+#include "cryptomagic_c.h"
 #include "stdlib.h"
 #cgo LDFLAGS: ${SRCDIR}/libcryptomagic.a -lstdc++ -lssl -lcrypto
 #cgo CFLAGS: -O3
 */
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+)
 
-type pointerType struct {
+type PointerType interface {
+	free()
+}
+
+type CryptoMagic struct {
+	PointerType
+
 	// raw C pointer reference
 	pointer unsafe.Pointer
 }
 
-type CryptoMagic struct {
-	pointerType
-}
-
 type PrivateKey struct {
-	pointerType
+	PointerType
+
+	// raw C pointer reference
+	pointer unsafe.Pointer
 }
 
 type PublicKey struct {
-	pointerType
+	PointerType
+
+	// raw C pointer reference
+	pointer unsafe.Pointer
 }
 
 func CM_init() {
@@ -31,7 +41,7 @@ func CM_init() {
 	cm := NewCryptoMagic()
 	sk := cm.generate_private_key()
 	sk.getPublicKey()
-	cm.pointer = C.cryptomagic_new()
+	sk.free()
 }
 
 /// Cryptomagic native functions
@@ -49,7 +59,7 @@ func (cm *CryptoMagic) generate_private_key() (sk PrivateKey) {
 	return sk
 }
 
-/// *** PrivateKey native functions
+///
 func (sk *PrivateKey) free() {
 	C.cryptomagic_private_key_free(sk.pointer)
 }
