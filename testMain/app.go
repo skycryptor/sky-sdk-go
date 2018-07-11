@@ -1,17 +1,17 @@
 package main
 
 import (
-  "skycryptor-go/cryptomagic"
+  "skycryptor-go/skycryptor"
   "fmt"
   "encoding/hex"
 )
 
 func main() {
-  cm := cryptomagic.NewCryptoMagic()
-  defer cm.Free()
+  cm := skycryptor.NewCryptoMagic()
+  defer cm.Clean()
 
   sk := cm.GeneratePrivateKey()
-  defer sk.Free()
+  defer sk.Clean()
 
   data := sk.ToBytes()
   fmt.Println(hex.EncodeToString(data))

@@ -1,4 +1,4 @@
-package cryptomagic
+package skycryptor
 
 /*
 #include "cryptomagic_c.h"
@@ -13,7 +13,7 @@ import (
 
 // Raw C pointer interface for implementing Garbage collection with it
 type CPointer interface {
-	Free()
+	Clean()
 }
 
 // Generic Key structure for having reference to Public or Private keys
@@ -39,7 +39,7 @@ func NewCryptoMagic() (cm *CryptoMagic) {
 }
 
 // Cleaning up C/C++ allocated memory for CryptoMagic object
-func (cm *CryptoMagic) Free() {
+func (cm *CryptoMagic) Clean() {
 	C.cryptomagic_clear(cm.pointer)
 }
 

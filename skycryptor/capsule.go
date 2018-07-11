@@ -1,4 +1,4 @@
-package cryptomagic
+package skycryptor
 
 /*
 #include "cryptomagic_c.h"
@@ -13,6 +13,6 @@ type Capsule struct {
   pointer unsafe.Pointer
 }
 
-func (c *Capsule) Free() {
+func (c *Capsule) Clean() {
   C.cryptomagic_capsule_free(c.pointer)
 }

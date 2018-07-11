@@ -1,4 +1,4 @@
-package cryptomagic
+package skycryptor
 
 /*
 #include "cryptomagic_c.h"
@@ -13,7 +13,7 @@ type PublicKey struct {
 }
 
 // Cleaning up C/C++ allocations for private key object
-func (pk *PublicKey) Free() {
+func (pk *PublicKey) Clean() {
   C.cryptomagic_public_key_free(pk.pointer);
 }
 
