@@ -13,20 +13,17 @@ import (
 
 // Raw C pointer interface for implementing Garbage collection with it
 type CPointer interface {
-	free()
+	Free()
 }
 
-// PrivateKey object for which is Go implementation of existing C/C++ library interface
-type PrivateKey struct {
+// Generic Key structure for having reference to Public or Private keys
+// Because they have mostly the same high level functions
+type Key struct {
   CPointer
   pointer unsafe.Pointer
   cm *CryptoMagic
 }
 
-// Cleaning up C/C++ allocations for private key object
-func (sk *PrivateKey) free() {
-  C.cryptomagic_private_key_free(sk.pointer);
-}
 
 // Main Crypto operations structure, which is a Go implementation of existing C/C++ library interface
 type CryptoMagic struct {
@@ -42,7 +39,7 @@ func NewCryptoMagic() (cm *CryptoMagic) {
 }
 
 // Cleaning up C/C++ allocated memory for CryptoMagic object
-func (cm *CryptoMagic) free() {
+func (cm *CryptoMagic) Free() {
 	C.cryptomagic_clear(cm.pointer)
 }
 
@@ -54,18 +51,10 @@ func (cm *CryptoMagic) GeneratePrivateKey() (sk *PrivateKey) {
   return sk
 }
 
+// Getting Private Key from bytes
 func (cm *CryptoMagic) GetPrivateKeyFromBytes(data []byte) (sk *PrivateKey) {
   sk = &PrivateKey{}
   sk.pointer = C.cryptomagic_private_key_from_bytes(cm.pointer, (*C.char)(unsafe.Pointer(&data[0])), C.int(len(data)))
   return sk
-}
-
-func (sk *PrivateKey) ToBytes() []byte {
-  var c_buffer *C.char
-  c_buffer_len := C.int(0)
-  C.cryptomagic_private_key_to_bytes(sk.pointer, &c_buffer,&c_buffer_len)
-  retBuf := C.GoBytes(unsafe.Pointer(c_buffer), c_buffer_len)
-  C.free(unsafe.Pointer(c_buffer))
-  return retBuf
 }
 

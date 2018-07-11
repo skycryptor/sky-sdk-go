@@ -8,7 +8,11 @@ import (
 
 func main() {
   cm := cryptomagic.NewCryptoMagic()
+  defer cm.Free()
+
   sk := cm.GeneratePrivateKey()
+  defer sk.Free()
+
   data := sk.ToBytes()
   fmt.Println(hex.EncodeToString(data))
 }
