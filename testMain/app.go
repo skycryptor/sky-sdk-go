@@ -2,7 +2,6 @@ package main
 
 import (
   "skycryptor-go/skycryptor"
-  "time"
   "fmt"
 )
 
