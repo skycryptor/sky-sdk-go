@@ -33,3 +33,13 @@ func (sk *PrivateKey) ToBytes() []byte {
   C.free(unsafe.Pointer(c_buffer))
   return retBuf
 }
+
+// Decapsulating given capsule and getting back symmetric key
+func (sk *PrivateKey) Decapsulate(capsule Capsule) (symmetricKey []byte) {
+  var c_buffer *C.char
+  c_buffer_len := C.int(0)
+  C.cryptomagic_decapsulate_original(sk.cm.pointer, capsule.pointer, sk.pointer, &c_buffer, &c_buffer_len)
+  retBuf := C.GoBytes(unsafe.Pointer(c_buffer), c_buffer_len)
+  C.free(unsafe.Pointer(c_buffer))
+  return retBuf
+}

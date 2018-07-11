@@ -14,7 +14,7 @@ type PublicKey struct {
 
 // Cleaning up C/C++ allocations for private key object
 func (pk *PublicKey) Clean() {
-  C.cryptomagic_public_key_free(pk.pointer);
+  C.cryptomagic_public_key_free(pk.pointer)
 }
 
 // Making encapsulation and getting Capsule with symmetric key

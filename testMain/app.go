@@ -2,17 +2,22 @@ package main
 
 import (
   "skycryptor-go/skycryptor"
+  "time"
   "fmt"
-  "encoding/hex"
 )
 
 func main() {
-  cm := skycryptor.NewCryptoMagic()
-  defer cm.Clean()
+  sc := skycryptor.NewSkycryptor()
+  skA, pkA := sc.Keys.Generate()
+  capsule1, _ := pkA.Encapsulate()
 
-  sk := cm.GeneratePrivateKey()
-  defer sk.Clean()
+  skA.Decapsulate(capsule1)
+  fmt.Println(string(symmetricKey1))
+  fmt.Println(string(symmetricKey2))
+  fmt.Println(string(symmetricKey2) == string(symmetricKey1))
 
-  data := sk.ToBytes()
-  fmt.Println(hex.EncodeToString(data))
+  capsule1.Clean()
+  skA.Clean()
+  pkA.Clean()
+  sc.Clean()
 }
