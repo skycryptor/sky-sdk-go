@@ -10,6 +10,9 @@ type SkyCryptor struct {
 }
 
 // Clearing C/C++ allocations
+// For example:
+//    sc := skycryptor.NewSkycryptor()
+//    defer sc.Clean()
 func (sc *SkyCryptor) Clean() {
   sc.cm.Clean()
 }
