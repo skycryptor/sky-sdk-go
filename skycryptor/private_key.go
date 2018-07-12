@@ -43,3 +43,11 @@ func (sk *PrivateKey) Decapsulate(capsule *Capsule) (symmetricKey []byte) {
   C.free(unsafe.Pointer(c_buffer))
   return retBuf
 }
+
+// Getting private key CryptoMagic object from given byte data
+func PrivateKeyFromBytes(cm *CryptoMagic, skData []byte) *PrivateKey {
+  sk := &PrivateKey{}
+  sk.cm = cm
+  sk.pointer = C.cryptomagic_private_key_from_bytes(cm.pointer, (*C.char)(unsafe.Pointer(&skData[0])), C.int(len(skData)))
+  return sk
+}

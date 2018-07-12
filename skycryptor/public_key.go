@@ -27,3 +27,21 @@ func (pk *PublicKey) Encapsulate() (capsule *Capsule, symmetric_key []byte) {
   C.free(unsafe.Pointer(c_buffer))
   return capsule, symmetric_key
 }
+
+// Encoding public key to bytes
+func (pk *PublicKey) ToBytes() (pkData []byte) {
+  var c_buffer *C.char
+  c_buffer_len := C.int(0)
+  C.cryptomagic_public_key_to_bytes(pk.pointer, &c_buffer, &c_buffer_len)
+  pkData = C.GoBytes(unsafe.Pointer(c_buffer), c_buffer_len)
+  C.free(unsafe.Pointer(c_buffer))
+  return pkData
+}
+
+// Getting public key CryptoMagic object from given byte data
+func PublicKeyFromBytes(cm *CryptoMagic, pkData []byte) *PublicKey {
+  pk := &PublicKey{}
+  pk.cm = cm
+  pk.pointer = C.cryptomagic_public_key_from_bytes(cm.pointer, (*C.char)(unsafe.Pointer(&pkData[0])), C.int(len(pkData)))
+  return pk
+}
