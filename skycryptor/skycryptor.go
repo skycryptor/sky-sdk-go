@@ -1,6 +1,6 @@
 package skycryptor
 
-//go:generate ./builder.sh
+//go:generate ../builder.sh
 
 // Main Skycryptor structure for having API functions referenced from it
 type SkyCryptor struct {
