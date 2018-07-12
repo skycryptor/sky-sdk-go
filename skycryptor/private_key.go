@@ -12,6 +12,14 @@ type PrivateKey struct {
   Key
 }
 
+// Getting private key CryptoMagic object from given byte data
+func PrivateKeyFromBytes(cm *CryptoMagic, skData []byte) *PrivateKey {
+  sk := &PrivateKey{}
+  sk.cm = cm
+  sk.pointer = C.cryptomagic_private_key_from_bytes(cm.pointer, (*C.char)(unsafe.Pointer(&skData[0])), C.int(len(skData)))
+  return sk
+}
+
 // Cleaning up C/C++ allocations for private key object
 func (sk *PrivateKey) Clean() {
   C.cryptomagic_private_key_free(sk.pointer);
@@ -44,10 +52,10 @@ func (sk *PrivateKey) Decapsulate(capsule *Capsule) (symmetricKey []byte) {
   return retBuf
 }
 
-// Getting private key CryptoMagic object from given byte data
-func PrivateKeyFromBytes(cm *CryptoMagic, skData []byte) *PrivateKey {
-  sk := &PrivateKey{}
-  sk.cm = cm
-  sk.pointer = C.cryptomagic_private_key_from_bytes(cm.pointer, (*C.char)(unsafe.Pointer(&skData[0])), C.int(len(skData)))
-  return sk
+// Getting ReEncryption key using current PrivateKey and given PublicKey
+func (sk *PrivateKey) GetReEncryptionKey(publicKey *PublicKey) *ReEncryptionKey {
+  rkk := &ReEncryptionKey{}
+  rkk.cm = sk.cm
+  rkk.pointer = C.cryptomagic_get_re_encryption_key(sk.cm.pointer, sk.pointer, publicKey.pointer)
+  return rkk
 }

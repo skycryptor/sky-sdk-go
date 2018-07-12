@@ -34,3 +34,8 @@ func (sc *SkyCryptor) PrivateKeyFromBytes(skData []byte) *PrivateKey {
 func (sc *SkyCryptor) PublicKeyFromBytes(pkData []byte) *PublicKey {
   return PublicKeyFromBytes(sc.cm, pkData)
 }
+
+// ReEncrypting capsule
+func (sc *SkyCryptor) ReEncrypt(capsule *Capsule, rkk *ReEncryptionKey) *Capsule {
+  return rkk.ReEncrypt(capsule)
+}
