@@ -53,7 +53,7 @@ func (sk *PrivateKey) Decapsulate(capsule *Capsule) (symmetricKey []byte) {
 }
 
 // Getting ReEncryption key using current PrivateKey and given PublicKey
-func (sk *PrivateKey) GetReEncryptionKey(publicKey *PublicKey) *ReEncryptionKey {
+func (sk *PrivateKey) GenerateReKey(publicKey *PublicKey) *ReEncryptionKey {
   rkk := &ReEncryptionKey{}
   rkk.cm = sk.cm
   rkk.pointer = C.cryptomagic_get_re_encryption_key(sk.cm.pointer, sk.pointer, publicKey.pointer)
