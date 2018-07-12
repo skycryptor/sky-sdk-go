@@ -18,3 +18,7 @@ func NewSkycryptor() *SkyCryptor {
   cm := NewCryptoMagic()
   return &SkyCryptor{cm: cm, Keys: KeyPair{cm: cm}}
 }
+
+func (sc *SkyCryptor) CapsuleFromBytes(capsuleData []byte) *Capsule {
+  return CapsuleFromBytes(sc.cm, capsuleData)
+}

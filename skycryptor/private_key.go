@@ -35,7 +35,7 @@ func (sk *PrivateKey) ToBytes() []byte {
 }
 
 // Decapsulating given capsule and getting back symmetric key
-func (sk *PrivateKey) Decapsulate(capsule Capsule) (symmetricKey []byte) {
+func (sk *PrivateKey) Decapsulate(capsule *Capsule) (symmetricKey []byte) {
   var c_buffer *C.char
   c_buffer_len := C.int(0)
   C.cryptomagic_decapsulate_original(sk.cm.pointer, capsule.pointer, sk.pointer, &c_buffer, &c_buffer_len)
