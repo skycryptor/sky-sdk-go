@@ -2,7 +2,7 @@ package tests
 
 import (
   "testing"
-  "skycryptor-go/skycryptor"
+  "skycryptor-sdk-go/skycryptor"
 )
 
 func TestPublicKeyFromToBytes(t *testing.T) {

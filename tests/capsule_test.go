@@ -2,7 +2,7 @@ package tests
 
 import (
   "testing"
-  "skycryptor-go/skycryptor"
+  "skycryptor-sdk-go/skycryptor"
 )
 
 func TestEncapsulateDecapsulate(t *testing.T) {
