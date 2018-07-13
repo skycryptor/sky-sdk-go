@@ -16,15 +16,15 @@ Our Key Management is based on cutting-edge Proxy Re-Encryption algorithms.
 ## Proxy Re-Encryption Overview
 
 Proxy Re-Encryption is a new type of public key cryptography which eliminates most functional constraints associated with standard public key cryptography 
-by extending it via introducing the third actor - proxy service. Proxy service can taken one cyphertext encrypted with Alice's public key, and transform or re-encrypt it under Bob's public key,
-so the later can be decrpted by Bob.
+by extending the standard public key cryptography setup via the third actor - a proxy service. Proxy service can take one cyphertext encrypted under Alice's public key, and transform or re-encrypt it under Bob's public key. The transformed cyphertext can be decrypted by Bob already. 
+Key thing is the proxy service re-encrypts the cyphertext without being able to decrypt it or get any other information about the protected data. 
 
-
-Our Data Encapsulation and Proxy Re-Encryption are implemented with [OpenSSL] (https://www.openssl.org/) and [libsodium] (https://github.com/jedisct1/libsodium) utilizing seckp256k1 elliptic curves and based on standard ECIES approach.
+Our Data Encapsulation and Proxy Re-Encryption are implemented with [OpenSSL] (https://www.openssl.org/) and [libsodium](https://github.com/jedisct1/libsodium) 
+utilizing seckp256k1 elliptic curves and based on standard ECIES approach.
 
 
 ## SDK Features
-- Easily generate Public and Private keys 
+- Generate Public and Private keys 
 - Generate and store Re encryption key from given private key
 - Make an encryption capsule from Public key
 - Create re-encryption capsule for making dasha sharing match easier
@@ -76,5 +76,10 @@ This basic example demonstrates how to generate random keys, get them as a basic
 ## Docs
 This Skycryptor Go SDK documentation available in GoDocs https://godoc.org/github.com/skycryptor/skycryptor-sdk-go
 
+## Use Cases
+- KYC Applications
+- End-to-Enc encrypted cloud collaboration
+- Decentralized Supply-Chain management
+- Keeping data private from the subset of peers in Hyperledge Fabric Channels
 ## Support
 Our developer support team is here to help you. Find out more information on our [Help Center](https://help.skycryptor.com/).
