@@ -7,16 +7,14 @@
 
 We provide "Encryption & Key Management" service in operation with open sourced libraries with support for Javascript, Python, Go, Rust, Java, C++ languages.
 
-[Skycryptor](https://skycryptor.com) GO SDK provides Key Management Service along with fast data encryption capabilities for adding data privacy & cryptographic access control 
-layer into your application with few lines of code. 
-These easy to use SDK and APIs enable to Encrypt, Decrypt and Manage Access of all kinds of data by eliminating any data exposure risk and helping to stay 
-compliant with HIPPA, GDPR and other data regulations.
+[Skycryptor](https://skycryptor.com) GO SDK provides Key Management Service along with fast data encryption capabilities for adding data privacy & 
+cryptographic access control layer into your app with just few lines of code. These easy to use SDK and APIs enable to Encrypt, Decrypt and Manage Access 
+of all kinds of data by eliminating data exposure risks and also helping to stay compliant with HIPPA, GDPR and other data regulations.
 
-It can empower applications from storage encryption or KYC apps to password-less authentication and more. 
+Use these tools for adding privacy by design into your apps starting from storage encryption or KYC platform to password-less authentication and more. 
 
-
-Skycryptor KMS is based on cutting-edge Proxy Re-Encryption algorithms, which enables to build 
-scalable Public Key Infrastructure with powerfull access control capabilities.
+Skycryptor KMS is based on cutting-edge Proxy Re-Encryption algorithms, which enables to build scalable Public Key Infrastructure with 
+powerfull access control capabilities.
 
 ## Proxy Re-Encryption Overview
 
@@ -26,9 +24,9 @@ can be authorized by Alice to take any cyphertext encrypted under Alice's public
 The transformed cyphertext can be decrypted by Bob later. 
 
 For making re-encryption, Proxy Service should be provided a special re-encryption key, which is created by Alice specially for Bob. 
-The Re-Encryption key generation requires Alice's private key as well Bobs' public key, which means that re-encryption key can be created only by Alice 
-but all without her interaction with Bob.
-After being provide the re-encryption key, it is very important that the proxy service can re-encrypt Alice's cyphertexts without being able to decrypt them or
+The Re-Encryption key generation requires Alice's private key and Bobs' public key. This means  re-encryption key can be generated only by Alice 
+and without any interaction with Bob.
+It is very important to note, that the proxy service once given the re-encryptin key from Alice to Bob, can re-encrypt Alice's cyphertexts without being able to decrypt them or
 get any extra information about the original plaintext. 
 
 Our Data Encapsulation and Proxy Re-Encryption algorithms are and based on standard ECIES approach and are implemented with [OpenSSL] (https://www.openssl.org/) and [libsodium](https://github.com/jedisct1/libsodium) 
@@ -36,12 +34,12 @@ utilizing seckp256k1 elliptic curves and based on standard ECIES approach.
 
 
 ## SDK Features
-- Generate Public and Private key pairs for Alice, Bob,... 
-- Enable Alice to generate the Re-Encryption key for Bob
-- Perform Symmetric Key Encapsulation for the given Public Key (Similar to standard Diffie-Hellman key exchange)
-- Given the Capsule and Re-Encryption Key, transform the capsule (Re-Encrypt) for the targeted recipient
-- Perform Decapsulation and recovering of the symmetric key
-- 
+
+- Generate and Manage User's Public and Private keys.  
+- Enable users to generate Re-Encryption keys for their peers.
+- Encapsulate a symmetric encryption key via given Public Key (similar to Diffie-Hellman Key Exchange)
+- Perform Re-Encryption for the given ciphertext and the re-encryption key
+- Decrypt both the original or transformed ciphertexts in order to reveal the encapsulated symmetric encryption key.
 
 ## Installation
 This is a standard Go package, but it requires to install OpenSSL package separately.
@@ -54,11 +52,50 @@ This is a standard Go package, but it requires to install OpenSSL package separa
 ```
 
 ## Usage Examples
-Before using our SDK make sure that you have successfully completed [Installation](#installation) step, 
-as Go compiler will not compile without having the `go generate` command successful completed.
+Before using our SDK make sure to successfully complete the [Installation](#installation) step, otherwise the Go compiler will not compile 
+without having the `go generate` command successfully completed.
 
-Checking our [Go Tests](https://github.com/skycryptor/skycryptor-sdk-go/tests) is a good start to understand how to use our SDK.
+Checking our [Go Tests](https://github.com/skycryptor/skycryptor-sdk-go/tests) is the good start for understanding  to use our SDK.
 
+### Initalization
+
+
+```go
+package main
+
+import (
+  "fmt"
+  "skycryptor-sdk-go/skycryptor"
+)
+
+....
+
+  // Initialize new Skycryptor context from the default encryption context 
+  sc := skycryptor.NewSkycryptor()
+```
+
+#### Generate User's Public and Private Keys  
+  ```
+  // generates random private key and creates corresponding public key 
+  alice_private_key, alice_public_key := sc.keys.generate()
+  ```
+#### Generate random symmetric key and encapsulate it with the Alice's Public Key 
+```
+  // Encapsulate function is a Diffie-Hellman style key exchange with randomly generated temprorary keys and Alice Public Key. 
+  // It returns both the exchanged symmetric key and the capsule which can be decapsulated later by the corresponding private key
+  // The generated symmetric_key can be used to protect and data object. 
+  capsule, symmetricKey := alice_public_key.encapsulate()
+  
+```
+
+#### The capsule can be unlocked by Alice private key to reveal the locked symmetric key
+
+  //
+```
+
+  // Alice can use her private key to unlock the Capsule and recover the symmetric encryptin key.
+  capsule, symmetricKey := alice_private_key.decapsulate(Capsule)
+  
 ```go
 package main
 
