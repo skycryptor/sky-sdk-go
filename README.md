@@ -3,12 +3,28 @@
 
 
 ## Introduction
-[Skycryptor](https://skycryptor.com) provides scalable Key Management Service with powerful encryption integrations for adding security and data privacy layer to any application.
-Using our tools you can encrypt, decrypt and share any kind of data easily, or write a middleware for your storage encryption, or provide password-less authentication for your application, etc...
+[Skycryptor](https://skycryptor.com), SAS, is a Paris, France, based cybersecurity company and a graduate of the Techstars Paris 2017 accelerator program.
+
+We provide "Encryption & Key Management" service in operation with open sourced libraries with support for Javascript, Python, Go, Rust, Java, C++ languages.
+
+[Skycryptor](https://skycryptor.com) provides Key Management Service along with fast data encryption capabilities for adding data privacy & cryptographic access control 
+layer into your application with few lines of code. Using our tools you can encrypt, decrypt and share any kind of data easily, or write a middleware for your storage encryption, or provide password-less authentication for your application, etc...
 Our flexible SDK and API will give you powerful tools to become HIPAA and GDPR compliant and match more.
 
+Our Key Management is based on cutting-edge Proxy Re-Encryption algorithms.  
+
+## Proxy Re-Encryption Overview
+
+Proxy Re-Encryption is a new type of public key cryptography which eliminates most functional constraints associated with standard public key cryptography 
+by extending the standard public key cryptography setup via the third actor - a proxy service. Proxy service can take one cyphertext encrypted under Alice's public key, and transform or re-encrypt it under Bob's public key. The transformed cyphertext can be decrypted by Bob already. 
+Key thing is the proxy service re-encrypts the cyphertext without being able to decrypt it or get any other information about the protected data. 
+
+Our Data Encapsulation and Proxy Re-Encryption are implemented with [OpenSSL] (https://www.openssl.org/) and [libsodium](https://github.com/jedisct1/libsodium) 
+utilizing seckp256k1 elliptic curves and based on standard ECIES approach.
+
+
 ## SDK Features
-- Easily generate Public and Private keys 
+- Generate Public and Private keys 
 - Generate and store Re encryption key from given private key
 - Make an encryption capsule from Public key
 - Create re-encryption capsule for making dasha sharing match easier
@@ -60,5 +76,10 @@ This basic example demonstrates how to generate random keys, get them as a basic
 ## Docs
 This Skycryptor Go SDK documentation available in GoDocs https://godoc.org/github.com/skycryptor/skycryptor-sdk-go
 
+## Use Cases
+- KYC Applications
+- End-to-Enc encrypted cloud collaboration
+- Decentralized Supply-Chain management
+- Keeping data private from the subset of peers in Hyperledge Fabric Channels
 ## Support
 Our developer support team is here to help you. Find out more information on our [Help Center](https://help.skycryptor.com/).
