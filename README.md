@@ -76,8 +76,10 @@ import (
 
 #### Generate User's Public and Private Keys  
   ```
-  // generates random private key and creates corresponding public key 
+  // randomly generates the private key and corresponding public key 
   alice_private_key, alice_public_key := sc.keys.generate()
+  bob_private_key, bob_public_key := sc.keys.generate()
+  
   ```
 #### Generate random symmetric key and encapsulate it with the Alice's Public Key 
 ```
@@ -88,14 +90,40 @@ import (
   
 ```
 
-#### The capsule can be unlocked by Alice private key to reveal the locked symmetric key
-
-  //
+#### Recovering the symmetric key by unlocking the original capsule
+````
+  // Alice can unlock the capsule and reveals the symmetric encryption key with her own private key
+  
+  symmetric_key_1 := alice_private_key.decapsulate(capsule)
 ```
 
-  // Alice can use her private key to unlock the Capsule and recover the symmetric encryptin key.
-  capsule, symmetricKey := alice_private_key.decapsulate(Capsule)
+
+#### Re-Encryption Key Generation
+````
+  // Alice can create re-encryption key for Bob, which later can be used by the Proxy Service to transform capsules,  
+  // which are locked under Alice's public  key, to another capsule, which is already locked under  Bob's public key
+  // The new created re-encryption key can be transformed to Proxy Service. 
   
+  re_key_alice_bob := alice_private_key.generate_re_key(bob_public_key)
+```
+
+#### Capsule Transformation (Re-Encryption)
+````
+  // Once given the re-encryption key re_key_alice_bob the Proxy Service can transform any capsule locked under Alice's public key, 
+  // to another capsule, which is already locked under Bob's public key
+  
+  transformed_capsule := sc.re_encrypt(capsule, re_key_alice_bob)
+```
+
+
+#### Recovering the symmetric key by unlocking the transformed (re-encrypted) capsule
+````
+  // Bob can unlock the transformed capsule and reveal the symmetric encryption key with his own private key
+  
+  symmetric_key_2 := bob_private_key.decapsulate(transformed_capsule)
+  assert (symmetric_key_1 == symmetric_key_1)
+```
+
 ```go
 package main
 
@@ -132,5 +160,6 @@ This Skycryptor Go SDK documentation available in GoDocs https://godoc.org/githu
 - End-to-Enc encrypted cloud collaboration
 - Decentralized Supply-Chain management
 - Keeping data private from the subset of peers in Hyperledge Fabric Channels
+
 ## Support
 Our developer support team is here to help you. Find out more information on our [Help Center](https://help.skycryptor.com/).
