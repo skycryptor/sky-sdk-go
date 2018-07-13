@@ -90,26 +90,26 @@ import (
   
 ```
 
-#### Recovering the symmetric key by unlocking the original capsule
+#### Revealing the symmetric key by unlocking the original capsule
 ````
   // Alice can unlock the capsule and reveals the symmetric encryption key with her own private key
   
   symmetric_key_1 := alice_private_key.decapsulate(capsule)
+  assert(symmetric_key == symmetric_key_1)
 ```
 
 
 #### Re-Encryption Key Generation
 ````
-  // Alice can create re-encryption key for Bob, which later can be used by the Proxy Service to transform capsules,  
-  // which are locked under Alice's public  key, to another capsule, which is already locked under  Bob's public key
-  // The new created re-encryption key can be transformed to Proxy Service. 
+  // Alice can create re-encryption key for Bob, which can later be used by the Proxy Service for transform capsules,  
+  // locked under Alice's public  key, to another capsule locked under  Bob's public key
   
   re_key_alice_bob := alice_private_key.generate_re_key(bob_public_key)
 ```
 
 #### Capsule Transformation (Re-Encryption)
 ````
-  // Once given the re-encryption key re_key_alice_bob the Proxy Service can transform any capsule locked under Alice's public key, 
+  // Given the re-encryption key re_key_alice_bob, the Proxy Service can transform the capsule locked under Alice's public key, 
   // to another capsule, which is already locked under Bob's public key
   
   transformed_capsule := sc.re_encrypt(capsule, re_key_alice_bob)
