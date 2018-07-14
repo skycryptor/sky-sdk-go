@@ -7,6 +7,8 @@
 
 We provide "Encryption & Key Management" service in operation with open sourced libraries with support for Javascript, Python, Go, Rust, Java, C++ languages.
 
+Our goal is to enable developers to build ’privacy by design’, end-to-end secured applications, without any technical complexities.
+
 [Skycryptor](https://skycryptor.com) GO SDK provides Key Management Service along with fast data encryption capabilities for adding data privacy & 
 cryptographic access control layer into your app with just few lines of code. These easy to use SDK and APIs enable to Encrypt, Decrypt and Manage Access 
 of all kinds of data by eliminating data exposure risks and also helping to stay compliant with HIPPA, GDPR and other data regulations.
