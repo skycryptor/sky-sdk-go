@@ -15,7 +15,7 @@ of all kinds of data by eliminating data exposure risks and also helping to stay
 
 Use these tools for adding privacy by design into your apps starting from storage encryption or KYC platform to password-less authentication and more. 
 
-Skycryptor KMS is based on cutting-edge Proxy Re-Encryption algorithms, which enables to build scalable Public Key Infrastructure with 
+One key utility Skycryptor KMS brings to the table are Proxy Re-Encryption algorithms, which enables to build scalable Public Key Infrastructure with 
 powerfull access control capabilities.
 
 ## Proxy Re-Encryption Overview
