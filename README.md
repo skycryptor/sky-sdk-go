@@ -77,53 +77,57 @@ import (
 ```
 
 #### Generate User's Public and Private Keys  
-  ```
+```
   // randomly generates the private key and corresponding public key 
-  alice_private_key, alice_public_key := sc.keys.generate()
-  bob_private_key, bob_public_key := sc.keys.generate()
+  alice_private_key, alice_public_key := sc.Keys.Generate()
+  bob_private_key, bob_public_key := sc.Keys.Generate()
   
-  ```
+```
 #### Generate random symmetric key and encapsulate it with the Alice's Public Key 
 ```
   // Encapsulate function is a Diffie-Hellman style key exchange with randomly generated temprorary keys and Alice Public Key. 
   // It returns both the exchanged symmetric key and the capsule which can be decapsulated later by the corresponding private key
   // The generated symmetric_key can be used to protect and data object. 
-  capsule, symmetricKey := alice_public_key.encapsulate()
+  capsule, symmetricKey := alice_public_key.Encapsulate()
   
 ```
 
 #### Revealing the symmetric key by unlocking the original capsule
-````
+```
   // Alice can unlock the capsule and reveals the symmetric encryption key with her own private key
   
-  symmetric_key_1 := alice_private_key.decapsulate(capsule)
-  assert(symmetric_key == symmetric_key_1)
+  symmetric_key_1 := alice_private_key.Decapsulate(capsule)
+  if symmetric_key != symmetric_key_1 {
+    panic("Symmetric keys should be equal!")
+  }
 ```
 
 
 #### Re-Encryption Key Generation
-````
+```
   // Alice can create re-encryption key for Bob, which can later be used by the Proxy Service for transform capsules,  
   // locked under Alice's public  key, to another capsule locked under  Bob's public key
   
-  re_key_alice_bob := alice_private_key.generate_re_key(bob_public_key)
+  re_key_alice_bob := alice_private_key.GenerateReKey(bob_public_key)
 ```
 
 #### Capsule Transformation (Re-Encryption)
-````
+```
   // Given the re-encryption key re_key_alice_bob, the Proxy Service can transform the capsule locked under Alice's public key, 
   // to another capsule, which is already locked under Bob's public key
   
-  transformed_capsule := sc.re_encrypt(capsule, re_key_alice_bob)
+  transformed_capsule := sc.ReEncrypt(capsule, re_key_alice_bob)
 ```
 
 
 #### Recovering the symmetric key by unlocking the transformed (re-encrypted) capsule
-````
+```
   // Bob can unlock the transformed capsule and reveal the symmetric encryption key with his own private key
   
-  symmetric_key_2 := bob_private_key.decapsulate(transformed_capsule)
-  assert (symmetric_key_1 == symmetric_key_1)
+  symmetric_key_2 := bob_private_key.Decapsulate(transformed_capsule)
+  if symmetric_key_1 == symmetric_key_1 {
+    panic("Symmetric keys should be equal!")
+  }
 ```
 
 ```go
