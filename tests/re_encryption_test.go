@@ -19,6 +19,14 @@ func TestGenerateReEncryptionKey(t *testing.T) {
 
   reEncryptionKey := skA.GenerateReKey(pkB)
   defer reEncryptionKey.Clean()
+
+  buffer := reEncryptionKey.ToBytes()
+  rkk2 := sc.ReEncryptionKeyFromBytes(buffer)
+  buffer2 := rkk2.ToBytes()
+  if string(buffer2) != string(buffer2) {
+    t.Errorf("Reencryption encode/decoding error")
+    t.Fail()
+  }
 }
 
 

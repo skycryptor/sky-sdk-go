@@ -142,6 +142,24 @@ void * cryptomagic_capsule_from_bytes(void * cm_ptr, char *buffer, int length);
 void * cryptomagic_get_re_encryption_key(void * cm_ptr, void *skA_ptr, void *pkB_ptr);
 
 /**
+ * \brief Getting re-encryption key form bytes
+ * @param cm_ptr
+ * @param buffer
+ * @param length
+ * @return
+ */
+void * cryptomagic_get_re_encryption_from_bytes(void * cm_ptr, char *buffer, int length);
+
+/**
+ * \brief getting encoded bytes from reencryption key
+ * @param[out] buffer
+ * @param[out] length
+ * @param rkk
+ * @return
+ */
+void cryptomagic_re_encryption_to_bytes(void * rkk_ptr, char **buffer, int *length);
+
+/**
  * \brief Cleaning up re-encryption key from memory
  * @param rkk_ptr
  */
