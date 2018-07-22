@@ -4,7 +4,7 @@ LIBFILE="lib$LIBNAME.a"
 SOURCE_DIR="`pwd`"
 
 # Cloning and building C++ library
-git clone git@gitlab.com:skycryptor/cpp-tmp-crypto.git "$LIBNAME"
+git clone https://github.com/skycryptor/cryptomagic.git "$LIBNAME"
 cd cryptomagic
 rm -rf build
 mkdir -p build && cd build
