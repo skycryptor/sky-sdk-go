@@ -11,5 +11,5 @@ mkdir -p build && cd build
 
 cmake ..
 make -j4
-cp "$LIBFILE" "$SOURCE_DIR/skycryptor"
+cp "$LIBFILE" "$SOURCE_DIR"
 cd "$SOURCE_DIR" && rm -rf "$LIBNAME"
