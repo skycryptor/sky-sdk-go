@@ -46,11 +46,10 @@ utilizing seckp256k1 elliptic curves and based on standard ECIES approach.
 ## Installation
 This is a standard Go package, but it requires to install OpenSSL package separately.
 ```bash
-~# # Install OpenSSL here, depends on OS you are running
-~# go get github.com/skycryptor/skycryptor-sdk-go
+# go get github.com/skycryptor/skycryptor-sdk-go/skycryptor
 
 # Compile Skycryptor C++ library and combine it with SDK
-~# go generate github.com/skycryptor/skycryptor-sdk-go/skycryptor
+# go generate github.com/skycryptor/skycryptor-sdk-go/skycryptor
 ```
 
 ## Usage Examples
