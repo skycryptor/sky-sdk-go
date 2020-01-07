@@ -50,7 +50,7 @@ This is a standard Go package, but it requires to install OpenSSL package separa
 ~# go get github.com/skycryptor/skycryptor-sdk-go
 
 # Compile Skycryptor C++ library and combine it with SDK
-~# go generate github.com/skycryptor/skycryptor-sdk-go/skyscryptor
+~# go generate github.com/skycryptor/skycryptor-sdk-go/skycryptor
 ```
 
 ## Usage Examples
